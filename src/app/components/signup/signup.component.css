@@ -13,6 +13,13 @@ body {
     font-family: sans-serif;
 }
 
+h1 {
+    margin-bottom: 10;
+    color: white;
+    text-align: center;
+    font-size: 40px;
+}
+
 form {
     width: 100%;
     max-width: 30rem;
