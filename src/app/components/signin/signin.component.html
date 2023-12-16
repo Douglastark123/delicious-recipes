@@ -1,19 +1,66 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./signin.component.css" />
-    <title>Signup</title>
-  </head>
-  <body>
-    <form action="" method="POST">
-      <h1>Login</h1>
-      <label for="email">Email</label>
-      <input type="text" name="email" id="email" required />
-      <label for="senha">Senha</label>
-      <input type="text" name="senha" id="senha" />
-      <button type="submit">Entrar</button>
-    </form>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrar</title>
+</head>
+<body>
+  <div class="h-full flex justify-center items-center bg-[#272a37]">
+    <mat-card>
+      <mat-card-content>
+        <form
+          #myForm="ngForm"
+          (ngSubmit)="onSubmit()"
+          class="flex justify-center flex-col font-sans w-[480px] p-5 gap-5"
+        >
+          <p class="text-center text-3xl">Entrar</p>
+      
+          <mat-form-field>
+            <mat-label>Seu email</mat-label>
+            <input
+              matInput
+              placeholder="johndoe@example.com"
+              [formControl]="formData.email"
+              required
+            />
+            @if (formData.email.invalid) {
+              <mat-error>{{getEmailErrorMessage()}}</mat-error>
+            }
+          </mat-form-field>
+      
+          <mat-form-field>
+            <mat-label>Sua senha</mat-label>
+            <input
+              matInput [type]="passwordIsHidden ? 'password' : 'text'"
+              minlength="8"
+              [formControl]="formData.password"
+              required
+              #password
+            />
+            <button
+              mat-icon-button
+              type="button"
+              matSuffix (click)="passwordIsHidden = !passwordIsHidden"
+              [attr.aria-label]="'Ocultar a senha'" [attr.aria-pressed]="passwordIsHidden"
+            >
+              <mat-icon>{{passwordIsHidden ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-hint align="end">{{password.value.length}}/16</mat-hint>
+            @if (formData.password.invalid) {
+              <mat-error>{{getPasswordErrorMessage()}}</mat-error>
+            }
+          </mat-form-field>
+    
+          <button
+            type="submit"
+            [disabled]="myForm.invalid"
+            class="text-xl text-white bg-orange-500 p-3 rounded-full"
+          >Entrar</button>
+          <p class="text-center">Ainda não tem uma conta? <a href="/signup" class="text-blue-500 underline">Cadastre-se</a></p>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</body>
 </html>
